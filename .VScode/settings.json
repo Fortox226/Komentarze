@@ -1,0 +1,12 @@
+{
+	"liveServer.settings.port": 5502,
+	"liveSassCompile.settings.formats": [
+		// You can add more
+		{
+			"format": "compressed",
+			"extensionName": ".css",
+			"savePath": "/css"
+		}
+	],
+	"editor.defaultFormatter": "esbenp.prettier-vscode"
+}
