@@ -1,3 +1,32 @@
+<?php
+$con = new mysqli("localhost", "root", "", "komentarze");
+
+// Sprawdź połączenie
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $comment = $_POST['comment'];
+
+    if (!empty($username) && !empty($comment)) {
+        $stmt = $con->prepare('INSERT INTO komentarz (nazwa_użytkownika, tekst) VALUES (?, ?)');
+        $stmt->bind_param('ss', $username, $comment);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // Przekieruj, aby zapobiec ponownemu przesłaniu formularza po odświeżeniu
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+$res = $con->query("SELECT * FROM `komentarz`");
+
+require_once 'blocked_words_list.php';
+
+?>
 <!DOCTYPE html>
 <html lang="pl">
 	<head>
@@ -129,15 +158,38 @@
 					</form>
 				</div>
 			</div>
-		</footer>
-		<?php 
-			$con = new mysqli("localhost", "root", "", "komentarze");
-			$res = $con->query("SELECT * FROM `komentarz`");
-			$con->close();
-			
-			while ($row = mysqli_fetch_assoc($res)) {
-				echo ``
+			<div class="komentarz">
+				<?php 
+			 while ($row = mysqli_fetch_assoc($res)) {
+				// echo '<pre>' . print_r($row, true) . '</pre>';
+
+				if (isset($row['nazwa_uzytkownika']) && isset($row['tekst'])) {
+					$username = htmlspecialchars($row['nazwa_uzytkownika']);
+					$comment = nl2br(htmlspecialchars($row['tekst']));
+				} else {
+					$username = 'Nieznany użytkownik';
+					$comment = 'Brak treści komentarza';
+				}
+
+				foreach ($blocked_words as $word) {
+					$pattern = '/\b' . preg_quote($word, '/') . '\b/i';
+					$replacement = str_repeat('*', mb_strlen($word));
+					$comment = preg_replace($pattern, $replacement, $comment);
+					$username = preg_replace($pattern, $replacement, $username);
+				}
+		
+				echo '<div class="comment">
+						  <div class="userdata">
+							  <p class="nickname">' . $username . '</p>
+						  </div>
+						  <div class="tresc_komentarza">
+							  <p>' . $comment . '</p>
+						  </div>
+					  </div>';
 			}
-		?>
+			$con->close();
+		?></div>
+		
+		</footer>
 	</body>
 </html>
