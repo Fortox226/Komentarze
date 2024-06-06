@@ -130,5 +130,14 @@
 				</div>
 			</div>
 		</footer>
+		<?php 
+			$con = new mysqli("localhost", "root", "", "komentarze");
+			$res = $con->query("SELECT * FROM `komentarz`");
+			$con->close();
+			
+			while ($row = mysqli_fetch_assoc($res)) {
+				echo ``
+			}
+		?>
 	</body>
 </html>
