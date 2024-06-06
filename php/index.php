@@ -122,10 +122,10 @@
 					<h1>Napisz komentarz <br> wasze zdanie się dla nas liczy!</h1>
 				</div>
 				<div class="comment-box">
-					<form action="" method="post">
+					<form action="create.php" method="post">
 						<input type="text" name="tresc" id="" placeholder="Treść komentarza" class="tresc">
 						<input type="text" name="nazwa" id="" placeholder="Twoja nazwa" class="nazwa">
-						<button type="submit" class="wyslij">Udostępnij</button>
+						<input type="submit" class="wyslij">
 					</form>
 				</div>
 			</div>
