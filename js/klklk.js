@@ -1,0 +1,2 @@
+alert("oK");
+history.back();
