@@ -98,17 +98,18 @@ main {
 				width: 100%;
 				height: 80%;
 				align-items: center;
-				justify-content: center;
+				justify-content: space-between;
 				padding: 10px;
 				flex-wrap: wrap;
-				padding: 30px 30px 31px 0px;
+				padding: 30px 30px 31px 20px;
+				text-align: left;
 				> div {
 					display: flex;
 					width: 100%;
 					height: 50px;
-					// align-items: center;
-					justify-content: center;
-
+					display: flex;
+					justify-content: flex-start;
+					margin-left: 200px;
 					> p {
 						font-size: 25px;
 						text-align: left;
@@ -162,7 +163,7 @@ main {
 		> p {
 			font-size: 25px;
 			text-align: left;
-			padding-left: 20px;
+			padding: 0px 0px 0px 20px;
 		}
 		.tak {
 			display: flex;
