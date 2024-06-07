@@ -1,7 +1,7 @@
 <?php
 $con = new mysqli("localhost", "root", "", "komentarze");
 
-// Sprawdź połączenie
+
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
@@ -17,12 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
-    // Przekieruj, aby zapobiec ponownemu przesłaniu formularza po odświeżeniu
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
 }
 
-$res = $con->query("SELECT * FROM `komentarz`");
+$res = $con->query("SELECT * FROM `komentarze`");
 
 require_once 'blocked_words_list.php';
 
@@ -161,7 +160,6 @@ require_once 'blocked_words_list.php';
 			<div class="komentarz">
 				<?php 
 			 while ($row = mysqli_fetch_assoc($res)) {
-				// echo '<pre>' . print_r($row, true) . '</pre>';
 
 				if (isset($row['nazwa_uzytkownika']) && isset($row['tekst'])) {
 					$username = htmlspecialchars($row['nazwa_uzytkownika']);
@@ -185,7 +183,8 @@ require_once 'blocked_words_list.php';
 						  <div class="tresc_komentarza">
 							  <p>' . $comment . '</p>
 						  </div>
-					  </div>';
+					  </div>
+					  <hr style="border-width: 2px">';
 			}
 			$con->close();
 		?></div>

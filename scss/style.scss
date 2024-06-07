@@ -161,12 +161,14 @@ main {
 			}
 		}
 		> p {
+			display: flex;
 			font-size: 25px;
 			text-align: left;
-			padding: 0px 0px 0px 20px;
+			padding: 0px 0px 0px 5px;
 		}
 		.tak {
 			display: flex;
+			padding: 5px;
 		}
 	}
 }
@@ -246,19 +248,27 @@ footer {
 			}
 		}
 	}
-	.komentarz{
+	.komentarz {
+		display: flex;
 		width: 600px;
-		background-color: brown;
-		.comment{
+		background-color: rgb(94, 48, 21);
+		flex-direction: column;
+		border-radius: 12.5px;
+		margin: 5px;
+		padding: 0px 0px 5px 0px;
+		color: white;
+		.comment {
 			display: flex;
 			width: 100%;
 			padding: 5px;
 			justify-content: center;
 			align-items: center;
 			flex-wrap: wrap;
-			.userdata{
+			// border-bottom: 2px solid black;
+			.userdata {
 				display: flex;
 				width: 100%;
+				justify-content: center;
 			}
 		}
 	}
